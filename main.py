@@ -58,8 +58,10 @@ def effective_config(set: list[str] = Query(default=[])):
             config["workers"] = value
 
     for key, value in os.environ.items():
-        if key.startswith("APP_"):
-            config[key[4:].lower()] = value
+      if key.startswith("APP_"):
+        config[key[4:].lower()] = value
+      elif key == "NUM_WORKERS":
+        config["workers"] = value
 
     for item in set:
         if "=" not in item:
